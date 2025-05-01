@@ -2433,3 +2433,28 @@ INFO 2025-05-01 06:47:56,064 basehttp 9620 19620 "GET /logout/ HTTP/1.1" 302 0
 INFO 2025-05-01 06:47:56,078 basehttp 9620 19620 "GET /login/ HTTP/1.1" 200 6164
 INFO 2025-05-01 06:48:00,773 basehttp 9620 17440 "POST /login/ HTTP/1.1" 302 0
 INFO 2025-05-01 06:48:00,784 basehttp 9620 17440 "GET /neurologist/ HTTP/1.1" 200 17685
+INFO 2025-05-01 06:48:44,195 basehttp 9620 15904 - Broken pipe from ('127.0.0.1', 60073)
+INFO 2025-05-01 06:49:44,807 autoreload 12232 9508 Watching for file changes with StatReloader
+INFO 2025-05-01 06:49:56,807 basehttp 12232 12268 "GET / HTTP/1.1" 200 7077
+WARNING 2025-05-01 06:49:56,980 log 12232 12268 Not Found: /favicon.ico
+WARNING 2025-05-01 06:49:56,984 basehttp 12232 12268 "GET /favicon.ico HTTP/1.1" 404 5396
+INFO 2025-05-01 06:49:59,797 basehttp 12232 12268 "GET /neurologist/ HTTP/1.1" 200 17365
+INFO 2025-05-01 06:50:00,340 basehttp 12232 12268 "GET /patients/ HTTP/1.1" 200 9880
+INFO 2025-05-01 06:50:02,913 basehttp 12232 12268 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-05-01 06:50:02,945 basehttp 12232 12268 "GET /login/ HTTP/1.1" 200 6164
+WARNING 2025-05-01 06:50:07,371 log 12232 12268 Forbidden (Origin checking failed - http://127.0.0.1:60407 does not match any trusted origins.): /login/
+WARNING 2025-05-01 06:50:07,372 basehttp 12232 12268 "POST /login/ HTTP/1.1" 403 2569
+INFO 2025-05-01 06:50:08,097 autoreload 12232 9508 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\settings.py changed, reloading.
+INFO 2025-05-01 06:50:08,599 autoreload 10348 8668 Watching for file changes with StatReloader
+INFO 2025-05-01 06:50:13,881 basehttp 10348 4956 "GET /login/ HTTP/1.1" 200 5827
+INFO 2025-05-01 06:53:05,186 autoreload 10348 8668 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\settings.py changed, reloading.
+INFO 2025-05-01 06:53:05,737 autoreload 7128 18336 Watching for file changes with StatReloader
+INFO 2025-05-01 06:54:56,385 autoreload 13300 10624 Watching for file changes with StatReloader
+INFO 2025-05-01 06:55:10,802 basehttp 13300 16048 "GET / HTTP/1.1" 200 5923
+INFO 2025-05-01 06:55:12,766 basehttp 13300 16048 "GET /login/ HTTP/1.1" 200 5827
+INFO 2025-05-01 06:55:18,764 basehttp 13300 16048 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-05-01 06:55:18,776 basehttp 13300 16048 "GET /technician/ HTTP/1.1" 200 11351
+INFO 2025-05-01 06:55:42,707 basehttp 13300 16048 "GET /technician/ HTTP/1.1" 200 11031
+INFO 2025-05-01 06:56:08,924 autoreload 13300 10624 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\settings.py changed, reloading.
+INFO 2025-05-01 06:56:09,348 autoreload 11676 11652 Watching for file changes with StatReloader
+INFO 2025-05-01 06:56:13,248 basehttp 11676 2392 "GET /technician/ HTTP/1.1" 200 11031
