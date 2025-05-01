@@ -1,0 +1,213 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ patient.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>
+                {{ patient.name }}
+                {% if patient.has_critical_alert %}
+                    <span class="badge bg-danger ms-2">⚠️ Critical Alert</span>
+                {% endif %}
+            </h1>
+            <p class="lead">Patient Details</p>
+        </div>
+        <div class="col-auto">
+            {% if user.is_technician %}
+                <div class="btn-group">
+                    <a href="{% url 'core:record_vitals' patient.id %}" class="btn btn-success">
+                        <i class="fas fa-heartbeat"></i> Record Vitals
+                    </a>
+                    <a href="{% url 'core:record_nihss' patient.id %}" class="btn btn-info">
+                        <i class="fas fa-brain"></i> NIHSS Assessment
+                    </a>
+                </div>
+            {% elif user.is_neurologist %}
+                <div class="btn-group">
+                    <a href="{% url 'core:add_consultation' patient.id %}" class="btn btn-primary">
+                        <i class="fas fa-comment-medical"></i> Add Consultation
+                    </a>
+                </div>
+            {% endif %}
+            <div class="btn-group ms-2">
+                <a href="{% url 'core:delete_patient' patient.id %}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Delete Patient
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% with active_alerts=patient.alerts.all %}
+        {% if active_alerts %}
+        <div class="col-12 mb-4">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">⚠️ Active Alerts</h5>
+                </div>
+                <div class="card-body">
+                    {% for alert in active_alerts %}
+                        {% if alert.is_active %}
+                        <div class="alert alert-danger mb-2">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <p class="mb-1"><strong>{{ alert.created_at|date:"M d, Y H:i" }}</strong></p>
+                                    {{ alert.message|linebreaks }}
+                                </div>
+                                {% if user.is_neurologist %}
+                                <form method="POST" action="{% url 'core:resolve_alert' alert.id %}" class="ms-3">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        <i class="fas fa-check"></i> Resolve
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endwith %}
+        
+        <!-- Patient Info -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Patient Information</h5>
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Age</dt>
+                        <dd class="col-sm-8">{{ patient.age }}</dd>
+                        
+                        <dt class="col-sm-4">Sex</dt>
+                        <dd class="col-sm-8">{{ patient.get_sex_display }}</dd>
+                        
+                        <dt class="col-sm-4">Registered</dt>
+                        <dd class="col-sm-8">{{ patient.created_at|date:"M d, Y" }}</dd>
+                        
+                        <dt class="col-sm-4">By</dt>
+                        <dd class="col-sm-8">{{ patient.created_by.username }}</dd>
+                    </dl>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Medical History</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Chief Complaint</h6>
+                    <p>{{ patient.chief_complaint }}</p>
+                    
+                    <h6>Medical History</h6>
+                    <p class="mb-0">{{ patient.medical_history }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Latest Vitals and NIHSS -->
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Latest Vital Signs</h5>
+                </div>
+                <div class="card-body">
+                    {% with latest_vitals=patient.vital_signs.first %}
+                        {% if latest_vitals %}
+                            <div class="row">
+                                <div class="col-md-3 text-center mb-3">
+                                    <h6>Blood Pressure</h6>
+                                    <p class="h4">{{ latest_vitals.blood_pressure_systolic }}/{{ latest_vitals.blood_pressure_diastolic }}</p>
+                                    <small class="text-muted">mmHg</small>
+                                </div>
+                                <div class="col-md-3 text-center mb-3">
+                                    <h6>Heart Rate</h6>
+                                    <p class="h4">{{ latest_vitals.heart_rate }}</p>
+                                    <small class="text-muted">bpm</small>
+                                </div>
+                                <div class="col-md-3 text-center mb-3">
+                                    <h6>Respiratory Rate</h6>
+                                    <p class="h4">{{ latest_vitals.respiratory_rate }}</p>
+                                    <small class="text-muted">breaths/min</small>
+                                </div>
+                                <div class="col-md-3 text-center mb-3">
+                                    <h6>O2 Saturation</h6>
+                                    <p class="h4">{{ latest_vitals.oxygen_saturation }}%</p>
+                                </div>
+                            </div>
+                            <p class="text-muted text-center mb-0">
+                                Recorded {{ latest_vitals.timestamp|date:"M d, Y H:i" }}
+                            </p>
+                        {% else %}
+                            <p class="text-center mb-0">No vital signs recorded yet.</p>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">NIHSS Scores</h5>
+                </div>
+                <div class="card-body">
+                    {% if patient.nihss_scores.exists %}
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Score</th>
+                                        <th>Notes</th>
+                                        <th>Recorded By</th>
+                                        <th>Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for score in patient.nihss_scores.all %}
+                                        <tr>
+                                            <td>{{ score.score }}</td>
+                                            <td>{{ score.notes|truncatechars:50 }}</td>
+                                            <td>{{ score.recorded_by.username }}</td>
+                                            <td>{{ score.timestamp|date:"M d, Y H:i" }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center mb-0">No NIHSS scores recorded yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Consultations</h5>
+                </div>
+                <div class="card-body">
+                    {% if patient.consultations.exists %}
+                        {% for consultation in patient.consultations.all %}
+                            <div class="mb-3">
+                                <h6>{{ consultation.neurologist.username }} - {{ consultation.created_at|date:"M d, Y H:i" }}</h6>
+                                <p class="mb-1"><strong>Diagnosis:</strong> {{ consultation.diagnosis }}</p>
+                                <p class="mb-1"><strong>Treatment Plan:</strong> {{ consultation.treatment_plan }}</p>
+                                {% if consultation.additional_orders %}
+                                    <p class="mb-0"><strong>Additional Orders:</strong> {{ consultation.additional_orders }}</p>
+                                {% endif %}
+                            </div>
+                            {% if not forloop.last %}<hr>{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-center mb-0">No consultations recorded yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

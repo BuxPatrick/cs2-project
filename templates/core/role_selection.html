@@ -1,0 +1,41 @@
+{% extends "core/base.html" %}
+
+{% block title %}Role Selection{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h1 class="mb-4">Welcome to Stroke Patient Manager</h1>
+            <p class="lead mb-5">Please select your role to continue</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-nurse fa-4x text-primary mb-3"></i>
+                    <h3 class="card-title">Technician</h3>
+                    <p class="card-text">Record patient data, vital signs, and NIHSS scores</p>
+                    <a href="{% url 'core:register' %}?role=TECHNICIAN" class="btn btn-primary">Register as Technician</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-md fa-4x text-primary mb-3"></i>
+                    <h3 class="card-title">Neurologist</h3>
+                    <p class="card-text">Review patient data and provide consultations</p>
+                    <a href="{% url 'core:register' %}?role=NEUROLOGIST" class="btn btn-primary">Register as Neurologist</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-8 text-center">
+            <p>Already have an account? <a href="{% url 'core:login' %}">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

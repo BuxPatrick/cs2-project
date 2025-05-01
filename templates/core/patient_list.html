@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Patient List</h2>
+        </div>
+        <div class="col text-end">
+            <a href="{% url 'core:patient_register' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Register New Patient
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Chief Complaint</th>
+                            <th>Registration Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                        <tr>
+                            <td>{{ patient.name }}</td>
+                            <td>{{ patient.age }}</td>
+                            <td>{{ patient.sex }}</td>
+                            <td>{{ patient.chief_complaint|truncatechars:50 }}</td>
+                            <td>{{ patient.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <a href="{% url 'core:patient_detail' patient.id %}" class="btn btn-sm {% if patient.has_critical_alert %}btn-danger{% else %}btn-info{% endif %}">
+                                    <i class="fas fa-eye"></i> View
+                                    {% if patient.has_critical_alert %}
+                                        <span class="ms-1">⚠️</span>
+                                    {% endif %}
+                                </a>
+                                <a href="{% url 'core:record_vitals' patient.id %}" class="btn btn-sm btn-success">
+                                    <i class="fas fa-heartbeat"></i> Vitals
+                                </a>
+                                <a href="{% url 'core:record_nihss' patient.id %}" class="btn btn-sm btn-warning">
+                                    <i class="fas fa-brain"></i> NIHSS
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No patients registered yet.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

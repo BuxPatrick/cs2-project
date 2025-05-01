@@ -1,0 +1,72 @@
+{% extends "core/base.html" %}
+
+{% block title %}Technician Dashboard{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Welcome, {{ user.username }}</h1>
+            <p class="lead">Technician Dashboard</p>
+        </div>
+        <div class="col-auto">
+            <a href="{% url 'core:patient_register' %}" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Patient
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Your Patients</h5>
+        </div>
+        <div class="card-body">
+            {% if patients %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Sex</th>
+                                <th>Chief Complaint</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in patients %}
+                                <tr>
+                                    <td>{{ patient.name }}</td>
+                                    <td>{{ patient.age }}</td>
+                                    <td>{{ patient.get_sex_display }}</td>
+                                    <td>{{ patient.chief_complaint|truncatechars:50 }}</td>
+                                    <td>{{ patient.updated_at|date:"M d, Y H:i" }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <a href="{% url 'core:patient_detail' patient.id %}" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-eye"></i> View
+                                            </a>
+                                            <a href="{% url 'core:record_vitals' patient.id %}" class="btn btn-sm btn-outline-success">
+                                                <i class="fas fa-heartbeat"></i> Vitals
+                                            </a>
+                                            <a href="{% url 'core:record_nihss' patient.id %}" class="btn btn-sm btn-outline-info">
+                                                <i class="fas fa-brain"></i> NIHSS
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-4">
+                    <p class="mb-0">No patients registered yet.</p>
+                    <a href="{% url 'core:patient_register' %}" class="btn btn-primary mt-3">Register Your First Patient</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

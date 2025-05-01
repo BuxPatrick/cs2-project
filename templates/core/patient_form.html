@@ -1,0 +1,109 @@
+{% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">{{ title }}</h3>
+                    <button type="button" id="simulateDataBtn" class="btn btn-light">Simulate Patient Data</button>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <!-- Patient Information Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Patient Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">{{ form.name|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.age|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.sex|as_crispy_field }}</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">{{ form.chief_complaint|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.medical_history|as_crispy_field }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vital Signs Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Vital Signs</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">{{ form.blood_pressure_systolic|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.blood_pressure_diastolic|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.heart_rate|as_crispy_field }}</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">{{ form.respiratory_rate|as_crispy_field }}</div>
+                                    <div class="col-md-6">{{ form.oxygen_saturation|as_crispy_field }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Lab Results Section -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4 class="mb-0">Lab Results (Optional)</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">{{ form.cbc_wbc|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.cbc_hgb|as_crispy_field }}</div>
+                                    <div class="col-md-4">{{ form.cbc_plt|as_crispy_field }}</div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-3">{{ form.bmp_sodium|as_crispy_field }}</div>
+                                    <div class="col-md-3">{{ form.bmp_potassium|as_crispy_field }}</div>
+                                    <div class="col-md-3">{{ form.bmp_creatinine|as_crispy_field }}</div>
+                                    <div class="col-md-3">{{ form.bmp_glucose|as_crispy_field }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Register Patient</button>
+                            <a href="{% url 'core:patient_list' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('simulateDataBtn').addEventListener('click', async function() {
+    try {
+        const response = await fetch('/api/simulate-patient-data/');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        
+        // Fill in the form fields with simulated data
+        Object.keys(data).forEach(key => {
+            const input = document.querySelector(`[name="${key}"]`);
+            if (input) {
+                input.value = data[key];
+                // Trigger change event for any field validations
+                input.dispatchEvent(new Event('change'));
+            }
+        });
+        
+    } catch (error) {
+        console.error('Error fetching simulated data:', error);
+        alert('Error generating simulated data. Please try again.');
+    }
+});
+</script>
+{% endblock %}
