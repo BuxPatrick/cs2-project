@@ -2410,3 +2410,26 @@ INFO 2025-05-01 06:38:57,904 basehttp 11332 2676 "GET / HTTP/1.1" 200 5923
 INFO 2025-05-01 06:38:59,526 basehttp 11332 2676 "GET /login/ HTTP/1.1" 200 5827
 INFO 2025-05-01 06:39:03,880 basehttp 11332 2676 "POST /login/ HTTP/1.1" 302 0
 INFO 2025-05-01 06:39:03,893 basehttp 11332 2676 "GET /technician/ HTTP/1.1" 200 11351
+INFO 2025-05-01 06:43:08,889 autoreload 20228 11100 Watching for file changes with StatReloader
+INFO 2025-05-01 06:43:36,325 basehttp 20228 11428 "GET / HTTP/1.1" 200 7323
+WARNING 2025-05-01 06:43:36,548 log 20228 11428 Not Found: /favicon.ico
+WARNING 2025-05-01 06:43:36,558 basehttp 20228 11428 "GET /favicon.ico HTTP/1.1" 404 5396
+INFO 2025-05-01 06:43:38,262 basehttp 20228 11428 "GET /login/ HTTP/1.1" 200 7227
+WARNING 2025-05-01 06:43:42,273 log 20228 11428 Forbidden (Origin checking failed - http://127.0.0.1:59391 does not match any trusted origins.): /login/
+WARNING 2025-05-01 06:43:42,274 basehttp 20228 11428 "POST /login/ HTTP/1.1" 403 2569
+INFO 2025-05-01 06:45:05,557 autoreload 20228 11100 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\settings.py changed, reloading.
+INFO 2025-05-01 06:45:06,105 autoreload 3592 16256 Watching for file changes with StatReloader
+WARNING 2025-05-01 06:45:27,480 log 3592 8540 Forbidden (Origin checking failed - http://127.0.0.1:59391 does not match any trusted origins.): /login/
+WARNING 2025-05-01 06:45:27,481 basehttp 3592 8540 "POST /login/ HTTP/1.1" 403 2569
+WARNING 2025-05-01 06:45:30,369 log 3592 8540 Forbidden (Origin checking failed - http://127.0.0.1:59391 does not match any trusted origins.): /login/
+WARNING 2025-05-01 06:45:30,370 basehttp 3592 8540 "POST /login/ HTTP/1.1" 403 2569
+INFO 2025-05-01 06:47:10,710 autoreload 9620 4052 Watching for file changes with StatReloader
+INFO 2025-05-01 06:47:22,372 basehttp 9620 15904 "GET / HTTP/1.1" 200 7323
+INFO 2025-05-01 06:47:26,835 basehttp 9620 15904 "GET /patients/register/ HTTP/1.1" 200 20904
+INFO 2025-05-01 06:47:27,332 basehttp 9620 15904 "GET /patients/ HTTP/1.1" 200 10126
+INFO 2025-05-01 06:47:28,068 basehttp 9620 15904 "GET /technician/ HTTP/1.1" 200 11031
+INFO 2025-05-01 06:47:53,619 basehttp 9620 19620 "GET / HTTP/1.1" 200 7323
+INFO 2025-05-01 06:47:56,064 basehttp 9620 19620 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-05-01 06:47:56,078 basehttp 9620 19620 "GET /login/ HTTP/1.1" 200 6164
+INFO 2025-05-01 06:48:00,773 basehttp 9620 17440 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-05-01 06:48:00,784 basehttp 9620 17440 "GET /neurologist/ HTTP/1.1" 200 17685

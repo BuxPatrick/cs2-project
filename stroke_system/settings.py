@@ -34,7 +34,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:61129',
     'http://127.0.0.1:58634',
     'http://localhost:8000',
-    'http://127.0.0.1:8000'
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1:59391'
 ]
 
 
@@ -77,6 +78,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:61129',
     'http://127.0.0.1:8000',
     'http://localhost:8000',
+    'http://127.0.0.1:59391',
 ]
 
 # CSRF settings
