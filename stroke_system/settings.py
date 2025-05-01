@@ -80,6 +80,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:8000',
     'http://127.0.0.1:59391',
+    'https://cs2-project.onrender.com',
 ]
 
 # CSRF settings
@@ -90,7 +91,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:61129',
     'http://localhost:61129',
     'http://127.0.0.1:8000',
-    'http://localhost:8000'
+    'http://localhost:8000',
+    'https://cs2-project.onrender.com'
 ]
 CSRF_USE_SESSIONS = True
 CSRF_COOKIE_HTTPONLY = True
@@ -165,9 +167,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Authentication settings
-LOGIN_URL = '/users/login/'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/users/login/'
+LOGOUT_REDIRECT_URL = '/login/'
 
 # Media files
 MEDIA_URL = '/media/'

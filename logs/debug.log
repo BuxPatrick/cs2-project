@@ -2475,3 +2475,7 @@ INFO 2025-05-01 07:03:45,445 basehttp 13084 296 "POST /login/ HTTP/1.1" 302 0
 INFO 2025-05-01 07:03:45,456 basehttp 13084 296 "GET /technician/ HTTP/1.1" 200 11351
 INFO 2025-05-01 07:07:56,161 autoreload 13084 11808 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\urls.py changed, reloading.
 INFO 2025-05-01 07:07:56,698 autoreload 12756 18832 Watching for file changes with StatReloader
+INFO 2025-05-01 07:13:08,677 autoreload 12756 18832 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\settings.py changed, reloading.
+INFO 2025-05-01 07:13:09,128 autoreload 20396 13456 Watching for file changes with StatReloader
+INFO 2025-05-01 07:13:27,988 autoreload 20396 13456 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\settings.py changed, reloading.
+INFO 2025-05-01 07:13:28,393 autoreload 14736 20452 Watching for file changes with StatReloader
