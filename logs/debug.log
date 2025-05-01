@@ -2473,3 +2473,5 @@ INFO 2025-05-01 07:03:32,540 basehttp 13084 8400 "GET / HTTP/1.1" 200 7077
 INFO 2025-05-01 07:03:35,070 basehttp 13084 8400 "GET /login/ HTTP/1.1" 200 6981
 INFO 2025-05-01 07:03:45,445 basehttp 13084 296 "POST /login/ HTTP/1.1" 302 0
 INFO 2025-05-01 07:03:45,456 basehttp 13084 296 "GET /technician/ HTTP/1.1" 200 11351
+INFO 2025-05-01 07:07:56,161 autoreload 13084 11808 C:\Users\pasamoah\Documents\GitHub\cs2-project\stroke_system\urls.py changed, reloading.
+INFO 2025-05-01 07:07:56,698 autoreload 12756 18832 Watching for file changes with StatReloader
